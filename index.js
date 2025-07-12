@@ -1,12 +1,15 @@
 const express = require("express");
 const puppeteer = require("puppeteer");
+const verifyApiKey = require("./middlewares/verifyApiKey");
 
 const app = express();
+
+// Configuración de middlewares de Express
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(express.raw({ limit: "10mb", type: () => true }));
 
-app.post("/screenshot", async (req, res) => {
+app.post("/screenshot", verifyApiKey, async (req, res) => {
   const { url } = req.body;
   if (!url) {
     res.status(400).json({ error: "Missing url" });
@@ -26,7 +29,7 @@ app.post("/screenshot", async (req, res) => {
   }
 });
 
-app.post("/pdf", async (req, res) => {
+app.post("/pdf", verifyApiKey, async (req, res) => {
   const { html, format } = req.body;
   if (!html) {
     res.status(400).json({ error: "Missing html" });
