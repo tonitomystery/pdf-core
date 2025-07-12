@@ -1,8 +1,17 @@
 const express = require("express");
 const puppeteer = require("puppeteer");
+const path = require('path');
 const verifyApiKey = require("./middlewares/verifyApiKey");
 
 const app = express();
+
+// Servir archivos estáticos desde el directorio actual
+app.use(express.static(path.join(__dirname)));
+
+// Endpoint para la documentación
+app.get('/docs', (req, res) => {
+    res.sendFile(path.join(__dirname, 'docs.html'));
+});
 
 // Configuración de middlewares de Express
 app.use(express.json({ limit: "10mb" }));
