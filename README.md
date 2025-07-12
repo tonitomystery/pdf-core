@@ -1,6 +1,12 @@
 # PDF Core Service
 
-A Node.js service that provides APIs for generating screenshots and PDF documents from URLs or HTML content using Puppeteer.
+A Node.js service that provides APIs for generating screenshots and PDF documents from URLs or HTML content using [Puppeteer](https://pptr.dev/).
+
+## Features
+
+- 🖥️ **Screenshots**: Capture screenshots of any webpage
+- 📄 **PDF Generation**: Convert webpages or HTML to PDF
+- 🚀 **Powered by Puppeteer**: Uses Headless Chrome/Chromium for reliable rendering
 
 ## API Documentation
 
