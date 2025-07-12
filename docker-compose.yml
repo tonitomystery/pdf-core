@@ -1,0 +1,12 @@
+services:
+  puppeteer:
+    build:
+      context: .
+    container_name: puppeteer
+    restart: always
+    ports:
+      - "3001:3001"
+    working_dir: /usr/src/app
+    # volumes:
+    #   - ./app/pupptearea:/usr/src/app
+    command: ["node", "index.js"]
