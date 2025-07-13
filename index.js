@@ -1,6 +1,6 @@
 const express = require("express");
 const puppeteer = require("puppeteer");
-const path = require('path');
+const path = require("path");
 const verifyApiKey = require("./middlewares/verifyApiKey");
 
 const app = express();
@@ -9,8 +9,8 @@ const app = express();
 app.use(express.static(path.join(__dirname)));
 
 // Endpoint para la documentación
-app.get('/docs', (req, res) => {
-    res.sendFile(path.join(__dirname, 'docs.html'));
+app.get("/docs", (req, res) => {
+  res.sendFile(path.join(__dirname, "docs.html"));
 });
 
 // Configuración de middlewares de Express
@@ -39,7 +39,7 @@ app.post("/screenshot", verifyApiKey, async (req, res) => {
 });
 
 app.post("/pdf", verifyApiKey, async (req, res) => {
-  const { html, format } = req.body;
+  const { html, format, margins } = req.body;
   if (!html) {
     res.status(400).json({ error: "Missing html" });
     return;
@@ -59,6 +59,12 @@ app.post("/pdf", verifyApiKey, async (req, res) => {
     const pdfBuffer = await page.pdf({
       format: format || "A4",
       printBackground: true,
+      margin: margins || {
+        top: "1cm",
+        bottom: "1cm",
+        left: "1cm",
+        right: "1cm",
+      },
     });
     await browser.close();
     res.set({ "Content-Type": "application/pdf" });
